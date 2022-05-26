@@ -14,8 +14,8 @@ public class StrategyFactory {
         return instance;
     }
 
-    private IPlayStrategy strategyToBeCreated;
-    public IPlayStrategy createStrategy(String strategyType) {
+    private Strategy strategyToBeCreated;
+    public Strategy createStrategy(String strategyType) {
 
         switch (strategyType) {
             case "random":

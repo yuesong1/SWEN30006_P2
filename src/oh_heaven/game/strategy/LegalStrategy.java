@@ -8,7 +8,7 @@ import oh_heaven.game.player.Player;
 
 import java.util.ArrayList;
 
-public class LegalStrategy implements IPlayStrategy {
+public class LegalStrategy implements Strategy {
     @Override
     public Card nextPlay(Player player, CurrentRound currentRound) {
         // follows game rule to play the cards with the same suit as the lead

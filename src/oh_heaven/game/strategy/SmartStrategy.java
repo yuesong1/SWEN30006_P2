@@ -9,7 +9,7 @@ import oh_heaven.game.player.Player;
 
 import java.util.ArrayList;
 
-public class SmartStrategy implements IPlayStrategy{
+public class SmartStrategy implements Strategy{
 
     @Override
     public Card nextPlay(Player player, CurrentRound currentRound) {

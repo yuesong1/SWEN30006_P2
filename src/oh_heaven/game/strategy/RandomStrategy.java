@@ -7,7 +7,7 @@ import oh_heaven.game.CurrentRound;
 import oh_heaven.game.Oh_Heaven;
 import oh_heaven.game.player.Player;
 
-public class RandomStrategy implements IPlayStrategy {
+public class RandomStrategy implements Strategy {
 
     @Override
     public Card nextPlay(Player player, CurrentRound currentRound) {

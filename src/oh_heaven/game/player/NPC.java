@@ -2,12 +2,12 @@ package oh_heaven.game.player;
 
 import ch.aplu.jcardgame.Card;
 import oh_heaven.game.CurrentRound;
-import oh_heaven.game.strategy.IPlayStrategy;
+import oh_heaven.game.strategy.Strategy;
 import oh_heaven.game.strategy.StrategyFactory;
 
 public class NPC extends Player {
 
-    private IPlayStrategy playStrategy;
+    private Strategy playStrategy;
 
     private StrategyFactory strategyFactory = StrategyFactory.getInstance();
     // act as the context object in an oh_heaven.game.strategy pattern structure
