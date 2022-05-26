@@ -2,16 +2,20 @@ package oh_heaven.game.strategy;
 
 public class StrategyFactory {
 
-    // TODO: singleton
+    private static StrategyFactory instance;
+
+    // private constructor
+    private StrategyFactory() {};
+
+    public static StrategyFactory getInstance() {
+        if (instance == null) {
+            instance = new StrategyFactory();
+        }
+        return instance;
+    }
+
     private IPlayStrategy strategyToBeCreated;
     public IPlayStrategy createStrategy(String strategyType) {
-
-        public static SimplePlayStrategyFactory getInstance() {
-            if (instance == null) {
-                instance = new SimplePlayStrategyFactory();
-            }
-            return instance;
-        }
 
         switch (strategyType) {
             case "random":

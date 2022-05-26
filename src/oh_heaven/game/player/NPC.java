@@ -9,14 +9,14 @@ public class NPC extends Player {
 
     private IPlayStrategy playStrategy;
 
-    private StrategyFactory strategyFactory = new StrategyFactory();
+    private StrategyFactory strategyFactory = StrategyFactory.getInstance();
     // act as the context object in an oh_heaven.game.strategy pattern structure
 
     public NPC(int index, String playStrategyType) {
         super(index);
         // if a factory pattern is used, it increases the cohesion of NPC and
         // factory classes
-        this.playStrategy = playStrategyType.createStrategy(playStrategyType);
+        this.playStrategy = strategyFactory.createStrategy(playStrategyType);
 
 
         // initialise play strategy based on the type
@@ -25,7 +25,6 @@ public class NPC extends Player {
         //} else if() {
 
         }
-    }
 
     @Override
     public Card playCard(CurrentRound currentRound) {
