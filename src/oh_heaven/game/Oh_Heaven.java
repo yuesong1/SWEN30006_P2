@@ -58,10 +58,18 @@ public class Oh_Heaven extends CardGame {
     // use an arrayList to store scores, tricks and bids
     private List<Player> players = new ArrayList<>();
 
-    private void setupPlayers() {
-        String type = "random";
+    private void setupPlayers(Properties properties) {
+
+
         for (int i = 0; i < nbPlayers; i++) {
-            players.add(new NPC(i, type));
+            // task 3 load player properties
+            String type =properties.getProperty(String.format("players.%d",i)) ;
+            if(type.equals("human")){
+                players.add(new HumanPlayer(i));
+            }
+            if(!type.equals("human")){
+                players.add(new NPC(i, type));
+            }
 
             // originally initScore()
             // scores[i] = 0;
@@ -81,7 +89,7 @@ public class Oh_Heaven extends CardGame {
         setStatusText("Initializing...");
 
         parseProperties(properties);
-        setupPlayers(); // newly added for task 1
+        setupPlayers(properties); // newly added for task 1
 
         initScores();
         for (int i = 0; i < nbRounds; i++) {
@@ -115,6 +123,29 @@ public class Oh_Heaven extends CardGame {
         return clazz.getEnumConstants()[x];
     }
 
+    // return smallest Card from hand, for task 3
+    public static Card smallestCard(ArrayList<Card> cards) {
+        if(cards.isEmpty()) return null;
+        Card smallest=cards.get(0);
+        for (Card c:cards) {
+            if(rankGreater(c,smallest)){
+                smallest=c;
+            }
+        }
+        return smallest;
+    }
+
+    // return biggest Card from hand, for task 3
+    public static Card biggestCard(ArrayList<Card> cards) {
+        if(cards.isEmpty()) return null;
+        Card biggest=cards.get(0);
+        for (Card c:cards) {
+            if(!rankGreater(c,biggest)){
+                biggest=c;
+            }
+        }
+        return biggest;
+    }
     // return random Card from Hand
     public static Card randomCard(Hand hand) {
         int x = random.nextInt(hand.getNumberOfCards());
@@ -166,7 +197,7 @@ public class Oh_Heaven extends CardGame {
         }
     }
 
-    public boolean rankGreater(Card card1, Card card2) {
+    public static boolean rankGreater(Card card1, Card card2) {
         return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
     }
 

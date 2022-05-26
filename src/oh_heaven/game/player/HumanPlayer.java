@@ -4,6 +4,7 @@ import ch.aplu.jcardgame.Card;
 import ch.aplu.jcardgame.CardAdapter;
 import ch.aplu.jcardgame.CardListener;
 import oh_heaven.game.CurrentRound;
+import oh_heaven.game.Oh_Heaven;
 
 public class HumanPlayer extends Player {
 
@@ -17,11 +18,12 @@ public class HumanPlayer extends Player {
     public Card playCard(CurrentRound currentRound) {
         selected = null;
         hand.setTouchEnabled(true);
-
+        //Oh_Heaven.setStatus("Player 0 double-click on card to lead.");
         //delay
-        hand.setTouchEnabled(false);
-        //TODO: auto-generated method stub
-        return null;
+        while(selected==null){
+            Oh_Heaven.delay(100);
+        }
+        return selected;
     }
 
     public void setupCardListener() {

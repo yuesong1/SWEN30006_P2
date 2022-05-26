@@ -8,14 +8,14 @@ import java.util.HashSet;
 
 // record all information in a round, for NPC to make decisions
 public class CurrentRound {
-     private Oh_Heaven.Suit trump;
+     private CardUtility.Suit trump;
      private int winner;
      private Card winningCard;
-     private Oh_Heaven.Suit lead;
+     private CardUtility.Suit lead;
      private HashMap<Integer, HashSet<Card>> cardsPlayed;
      private ArrayList<Integer> scores;
 
-     public CurrentRound(Oh_Heaven.Suit trump) {
+     public CurrentRound(CardUtility.Suit trump) {
          this.trump = trump;
          this.cardsPlayed = new HashMap<>();
          this.scores = new ArrayList<>();
@@ -31,11 +31,11 @@ public class CurrentRound {
          }
      }
 
-    public Oh_Heaven.Suit getTrump() {
+    public CardUtility.Suit getTrump() {
         return trump;
     }
 
-    public void setTrump(Oh_Heaven.Suit trump) {
+    public void setTrump(CardUtility.Suit trump) {
         this.trump = trump;
     }
 
@@ -55,11 +55,11 @@ public class CurrentRound {
         this.winningCard = winningCard;
     }
 
-    public Oh_Heaven.Suit getLead() {
+    public CardUtility.Suit getLead() {
         return lead;
     }
 
-    public void setLead(Oh_Heaven.Suit lead) {
+    public void setLead(CardUtility.Suit lead) {
         this.lead = lead;
     }
 

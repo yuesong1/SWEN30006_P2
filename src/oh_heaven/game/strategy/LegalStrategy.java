@@ -12,7 +12,7 @@ public class LegalStrategy implements IPlayStrategy {
     public Card nextPlay(Player player, CurrentRound currentRound) {
         // follows game rule to play the cards with the same suit as the lead
 
-        //check if lead
+        //check if current player is leading, if leading, chose random card
         if (currentRound.getLead() == null) {
             return Oh_Heaven.randomCard(player.getHand());
         }
