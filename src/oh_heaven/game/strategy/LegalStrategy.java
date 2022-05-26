@@ -1,6 +1,7 @@
 package oh_heaven.game.strategy;
 
 import ch.aplu.jcardgame.Card;
+import oh_heaven.game.CardUtility;
 import oh_heaven.game.CurrentRound;
 import oh_heaven.game.Oh_Heaven;
 import oh_heaven.game.player.Player;
@@ -14,15 +15,15 @@ public class LegalStrategy implements IPlayStrategy {
 
         //check if current player is leading, if leading, chose random card
         if (currentRound.getLead() == null) {
-            return Oh_Heaven.randomCard(player.getHand());
+            return CardUtility.randomCard(player.getHand());
         }
 
         ArrayList<Card> sameSuitAsLead = player.getHand().getCardsWithSuit(currentRound.getLead());
 
         if (sameSuitAsLead.size() > 0) {
-            return Oh_Heaven.randomCard(sameSuitAsLead);
+            return CardUtility.randomCard(sameSuitAsLead);
         } else {
-            return Oh_Heaven.randomCard(player.getHand());
+            return CardUtility.randomCard(player.getHand());
         }
     }
 }

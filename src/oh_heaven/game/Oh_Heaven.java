@@ -26,7 +26,7 @@ public class Oh_Heaven extends CardGame {
     private final String version = "1.0";
     private final int handWidth = 400;
     private final int trickWidth = 40;
-    private final Deck deck = new Deck(Suit.values(), Rank.values(), "cover");
+    private final Deck deck = new Deck(CardUtility.Suit.values(), CardUtility.Rank.values(), "cover");
     private final Location[] handLocations = {
             new Location(350, 625),
             new Location(75, 350),
@@ -117,47 +117,6 @@ public class Oh_Heaven extends CardGame {
         refresh();
     }
 
-    // return random Enum value
-    public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
-        int x = random.nextInt(clazz.getEnumConstants().length);
-        return clazz.getEnumConstants()[x];
-    }
-
-    // return smallest Card from hand, for task 3
-    public static Card smallestCard(ArrayList<Card> cards) {
-        if(cards.isEmpty()) return null;
-        Card smallest=cards.get(0);
-        for (Card c:cards) {
-            if(rankGreater(c,smallest)){
-                smallest=c;
-            }
-        }
-        return smallest;
-    }
-
-    // return biggest Card from hand, for task 3
-    public static Card biggestCard(ArrayList<Card> cards) {
-        if(cards.isEmpty()) return null;
-        Card biggest=cards.get(0);
-        for (Card c:cards) {
-            if(!rankGreater(c,biggest)){
-                biggest=c;
-            }
-        }
-        return biggest;
-    }
-    // return random Card from Hand
-    public static Card randomCard(Hand hand) {
-        int x = random.nextInt(hand.getNumberOfCards());
-        return hand.get(x);
-    }
-
-    // return random Card from ArrayList
-    public static Card randomCard(ArrayList<Card> list) {
-        int x = random.nextInt(list.size());
-        return list.get(x);
-    }
-
     //initialise property elements
     private void parseProperties(Properties properties) {
         this.nbStartCards = properties.getProperty("nbStartCards") == null ? nbStartCards
@@ -188,7 +147,7 @@ public class Oh_Heaven extends CardGame {
         for (int i = 0; i < nbCardsPerPlayer; i++) {
             for (int j = 0; j < nbPlayers; j++) {
                 if (pack.isEmpty()) return;
-                Card dealt = randomCard(pack);
+                Card dealt = CardUtility.randomCard(pack);
                 // System.out.println("Cards = " + dealt);
                 dealt.removeFromHand(false);
                 hands[j].insert(dealt, false);
@@ -197,15 +156,9 @@ public class Oh_Heaven extends CardGame {
         }
     }
 
-    public static boolean rankGreater(Card card1, Card card2) {
-        return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
-    }
-
     public void setStatus(String string) {
         setStatusText(string);
     }
-
-
 
     private void updateScoreGraphics(int player) {
         removeActor(scoreActors[player]);
@@ -233,7 +186,7 @@ public class Oh_Heaven extends CardGame {
         }
     }
 
-    private void initBids(Suit trumps, int nextPlayer) {
+    private void initBids(CardUtility.Suit trumps, int nextPlayer) {
         int total = 0;
         for (int i = nextPlayer; i < nextPlayer + nbPlayers; i++) {
             int iP = i % nbPlayers;
@@ -289,7 +242,7 @@ public class Oh_Heaven extends CardGame {
 
     private void playRound() {
         // Select and display trump suit
-        final Suit trumps = randomEnum(Suit.class);
+        final CardUtility.Suit trumps = CardUtility.randomEnum(CardUtility.Suit.class);
         final Actor trumpsActor = new Actor("sprites/" + trumpImage[trumps.ordinal()]);
         addActor(trumpsActor, trumpsActorLocation);
         // End trump suit
@@ -299,7 +252,7 @@ public class Oh_Heaven extends CardGame {
         Hand trick; // 这一轮出过的牌
         int winner; // 这一轮的赢家
         Card winningCard; // 决胜卡
-        Suit lead; // 这轮第一张牌的花色
+        CardUtility.Suit lead; // 这轮第一张牌的花色
 
         int nextPlayer = random.nextInt(nbPlayers); // randomly select player to lead for this round
         initBids(trumps, nextPlayer);
@@ -326,7 +279,7 @@ public class Oh_Heaven extends CardGame {
             trick.draw();
             selected.setVerso(false);
             // No restrictions on the card being lead
-            lead = (Suit) selected.getSuit();
+            lead = (CardUtility.Suit) selected.getSuit();
             selected.transfer(trick, true); // transfer to trick (includes graphic effect)
             winner = nextPlayer;
             winningCard = selected;
@@ -381,7 +334,7 @@ public class Oh_Heaven extends CardGame {
                 // System.out.println("winning: suit = " + winningCard.getSuit() + ", rank = " + (13 - winningCard.getRankId()));
                 // System.out.println(" played: suit = " +    selected.getSuit() + ", rank = " + (13 -    selected.getRankId()));
                 if ( // beat current winner with higher card
-                        (selected.getSuit() == winningCard.getSuit() && rankGreater(selected, winningCard)) ||
+                        (selected.getSuit() == winningCard.getSuit() && CardUtility.rankGreater(selected, winningCard)) ||
                                 // trumped when non-trump was winning
                                 (selected.getSuit() == trumps && winningCard.getSuit() != trumps)) {
                     System.out.println("NEW WINNER");
@@ -410,14 +363,6 @@ public class Oh_Heaven extends CardGame {
     }
 
 
-    public enum Suit {
-        SPADES, HEARTS, DIAMONDS, CLUBS
-    }
 
-    public enum Rank {
-        // Reverse order of rank importance (see rankGreater() below)
-        // Order of cards is tied to card images
-        ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO
-    }
 
 }

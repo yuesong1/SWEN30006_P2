@@ -2,6 +2,7 @@ package oh_heaven.game.strategy;
 
 import ch.aplu.jcardgame.Card;
 import ch.aplu.jcardgame.Hand;
+import oh_heaven.game.CardUtility;
 import oh_heaven.game.CurrentRound;
 import oh_heaven.game.Oh_Heaven;
 import oh_heaven.game.player.Player;
@@ -15,7 +16,7 @@ public class SmartStrategy implements IPlayStrategy{
         player.getHand().sort(Hand.SortType.RANKPRIORITY, false);
         // if smart player is leading, pick one smallest card in hand
         if(currentRound.getLead()==null){
-            return Oh_Heaven.smallestCard(player.getHand().getCardList());
+            return CardUtility.smallestCard(player.getHand().getCardList());
         }
 
         ArrayList<Card> sameSuitAsLead = player.getHand().getCardsWithSuit(currentRound.getLead());
@@ -24,14 +25,14 @@ public class SmartStrategy implements IPlayStrategy{
         // if they have the same suit, check the winner, if the winner is smaller,
         // pick the biggest card in hand, if the winner is bigger, pick the smallest
         if (sameSuitAsLead.size() > 0) {
-            Card biggest=Oh_Heaven.biggestCard(sameSuitAsLead);
-            if( Oh_Heaven.rankGreater(biggest,currentRound.getWinningCard()) ){
-                return Oh_Heaven.smallestCard(sameSuitAsLead);
+            Card biggest= CardUtility.biggestCard(sameSuitAsLead);
+            if( CardUtility.rankGreater(biggest,currentRound.getWinningCard()) ){
+                return CardUtility.smallestCard(sameSuitAsLead);
             }else{
                 return biggest;
             }
         } else {
-            return Oh_Heaven.smallestCard(player.getHand().getCardList());
+            return CardUtility.smallestCard(player.getHand().getCardList());
         }
     }
 }

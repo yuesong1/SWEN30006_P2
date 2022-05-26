@@ -1,17 +1,11 @@
 package oh_heaven.game;
 import ch.aplu.jcardgame.*;
-import ch.aplu.jgamegrid.*;
-import oh_heaven.game.player.HumanPlayer;
-import oh_heaven.game.player.NPC;
-import oh_heaven.game.player.Player;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class CardUtility {
-
+    static public final int seed = 30006;
+    static final Random random = new Random(seed);
     // return random Enum value
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
         int x = random.nextInt(clazz.getEnumConstants().length);
@@ -57,10 +51,6 @@ public class CardUtility {
         return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
     }
 
-    public void setStatus(String string) {
-        setStatusText(string);
-    }
-
     public enum Suit {
         SPADES, HEARTS, DIAMONDS, CLUBS
     }
@@ -70,8 +60,5 @@ public class CardUtility {
         // Order of cards is tied to card images
         ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO
     }
-
-
-
 
 }
